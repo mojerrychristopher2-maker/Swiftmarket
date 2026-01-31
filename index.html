@@ -1,0 +1,1750 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SwiftMarket - Global Delivery in 10 Days</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0a0a0a;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0a0a0a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #333;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+        
+        /* Animations */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 20px rgba(99, 102, 241, 0.3); }
+            50% { box-shadow: 0 0 40px rgba(99, 102, 241, 0.6); }
+        }
+        
+        @keyframes slide-in {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes gradient-shift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .animate-float {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .animate-slide-in {
+            animation: slide-in 0.6s ease-out forwards;
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradient-shift 5s ease infinite;
+        }
+        
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .product-card {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .product-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(99, 102, 241, 0.2);
+        }
+        
+        .category-pill {
+            transition: all 0.3s ease;
+        }
+        
+        .category-pill:hover {
+            transform: scale(1.05);
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+        }
+        
+        .nav-link {
+            position: relative;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #6366f1, #8b5cf6);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .cart-badge {
+            animation: pulse-glow 2s infinite;
+        }
+        
+        .supplier-card {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(139, 92, 246, 0.05));
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .supplier-card:hover {
+            border-color: rgba(99, 102, 241, 0.5);
+            transform: translateX(10px);
+        }
+        
+        .hero-gradient {
+            background: radial-gradient(ellipse at top, rgba(99, 102, 241, 0.15), transparent 70%),
+                        radial-gradient(ellipse at bottom right, rgba(139, 92, 246, 0.1), transparent 50%);
+        }
+        
+        .grid-pattern {
+            background-image: linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                              linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+        }
+        
+        .search-glow:focus {
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.3);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.4);
+        }
+        
+        .shipping-badge {
+            background: linear-gradient(90deg, #10b981, #059669);
+        }
+        
+        .modal-enter {
+            animation: modalEnter 0.3s ease-out forwards;
+        }
+        
+        @keyframes modalEnter {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        
+        .toast {
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+        }
+        
+        .toast.show {
+            transform: translateX(0);
+        }
+        
+        /* Review Styles */
+        .review-card {
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .review-card:hover {
+            background: rgba(255, 255, 255, 0.03);
+            border-color: rgba(99, 102, 241, 0.2);
+        }
+        
+        .star-rating {
+            display: inline-flex;
+            flex-direction: row-reverse;
+            gap: 4px;
+        }
+        
+        .star-rating input {
+            display: none;
+        }
+        
+        .star-rating label {
+            cursor: pointer;
+            color: #374151;
+            transition: all 0.2s ease;
+        }
+        
+        .star-rating label:hover,
+        .star-rating label:hover ~ label,
+        .star-rating input:checked ~ label {
+            color: #fbbf24;
+            transform: scale(1.1);
+        }
+        
+        .review-vote-btn {
+            transition: all 0.2s ease;
+        }
+        
+        .review-vote-btn:hover {
+            background: rgba(99, 102, 241, 0.2);
+            color: #6366f1;
+        }
+        
+        .review-vote-btn.voted {
+            background: rgba(99, 102, 241, 0.3);
+            color: #6366f1;
+        }
+        
+        .verified-badge {
+            background: linear-gradient(135deg, #10b981, #059669);
+        }
+        
+        .progress-bar {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 999px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            background: linear-gradient(90deg, #fbbf24, #f59e0b);
+            height: 100%;
+            border-radius: 999px;
+            transition: width 0.5s ease;
+        }
+        
+        .review-image-upload {
+            border: 2px dashed rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .review-image-upload:hover {
+            border-color: #6366f1;
+            background: rgba(99, 102, 241, 0.05);
+        }
+        
+        .review-tab {
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .review-tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #6366f1, #8b5cf6);
+        }
+        
+        .review-sort-select {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .review-sort-select:focus {
+            border-color: #6366f1;
+            outline: none;
+        }
+    </style>
+</head>
+<body class="grid-pattern min-h-screen">
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 glass-effect border-b border-white/10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Logo -->
+                <div class="flex items-center gap-3 cursor-pointer" onclick="window.scrollTo(0,0)">
+                    <div class="w-10 h-10 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-xl flex items-center justify-center">
+                        <i data-lucide="zap" class="w-6 h-6 text-white"></i>
+                    </div>
+                    <span class="text-2xl font-bold tracking-tight">Swift<span class="gradient-text">Market</span></span>
+                </div>
+
+                <!-- Search Bar -->
+                <div class="hidden md:flex flex-1 max-w-2xl mx-8">
+                    <div class="relative w-full">
+                        <input type="text" id="searchInput" placeholder="Search millions of products..." 
+                               class="w-full bg-white/5 border border-white/10 rounded-full py-3 px-6 pl-12 text-white placeholder-gray-400 focus:outline-none search-glow transition-all">
+                        <i data-lucide="search" class="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400"></i>
+                        <button onclick="handleSearch()" class="absolute right-2 top-1/2 -translate-y-1/2 bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-1.5 rounded-full text-sm transition-colors">
+                            Search
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Right Nav -->
+                <div class="flex items-center gap-6">
+                    <button onclick="toggleSupplierModal()" class="hidden lg:flex items-center gap-2 text-gray-300 hover:text-white transition-colors nav-link">
+                        <i data-lucide="globe" class="w-5 h-5"></i>
+                        <span class="text-sm font-medium">Suppliers</span>
+                    </button>
+                    
+                    <button onclick="toggleCart()" class="relative text-gray-300 hover:text-white transition-colors">
+                        <i data-lucide="shopping-cart" class="w-6 h-6"></i>
+                        <span id="cartCount" class="absolute -top-2 -right-2 bg-indigo-600 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center cart-badge hidden">0</span>
+                    </button>
+                    
+                    <button class="flex items-center gap-2 bg-white/5 hover:bg-white/10 border border-white/10 rounded-full px-4 py-2 transition-all">
+                        <i data-lucide="user" class="w-5 h-5"></i>
+                        <span class="hidden sm:block text-sm font-medium">Sign In</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative pt-32 pb-20 px-4 sm:px-6 lg:px-8 hero-gradient overflow-hidden">
+        <div class="absolute inset-0 opacity-30">
+            <div class="absolute top-20 left-10 w-72 h-72 bg-indigo-600 rounded-full mix-blend-multiply filter blur-3xl animate-float"></div>
+            <div class="absolute top-40 right-10 w-72 h-72 bg-purple-600 rounded-full mix-blend-multiply filter blur-3xl animate-float" style="animation-delay: 2s"></div>
+        </div>
+
+        <div class="max-w-7xl mx-auto relative z-10">
+            <div class="text-center max-w-4xl mx-auto">
+                <div class="inline-flex items-center gap-2 bg-white/5 border border-white/10 rounded-full px-4 py-2 mb-8 animate-slide-in">
+                    <span class="shipping-badge text-xs font-bold px-2 py-0.5 rounded-full text-white">NEW</span>
+                    <span class="text-sm text-gray-300">Global delivery in under 10 days guaranteed</span>
+                </div>
+                
+                <h1 class="text-5xl sm:text-7xl font-bold mb-6 leading-tight animate-slide-in" style="animation-delay: 0.1s">
+                    The Future of <br>
+                    <span class="gradient-text">Global Shopping</span>
+                </h1>
+                
+                <p class="text-xl text-gray-400 mb-10 max-w-2xl mx-auto animate-slide-in" style="animation-delay: 0.2s">
+                    Access millions of products from verified suppliers worldwide. 
+                    AI-powered logistics ensure your order arrives in 10 days or less, or your money back.
+                </p>
+                
+                <div class="flex flex-col sm:flex-row gap-4 justify-center animate-slide-in" style="animation-delay: 0.3s">
+                    <button onclick="scrollToProducts()" class="btn-primary text-white px-8 py-4 rounded-full font-semibold text-lg flex items-center justify-center gap-2">
+                        Start Shopping
+                        <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                    </button>
+                    <button onclick="toggleSupplierModal()" class="bg-white/5 border border-white/20 text-white px-8 py-4 rounded-full font-semibold text-lg hover:bg-white/10 transition-all flex items-center justify-center gap-2">
+                        <i data-lucide="truck" class="w-5 h-5"></i>
+                        View Supply Chain
+                    </button>
+                </div>
+
+                <!-- Trust Badges -->
+                <div class="mt-16 flex flex-wrap justify-center gap-8 opacity-60 animate-slide-in" style="animation-delay: 0.4s">
+                    <div class="flex items-center gap-2">
+                        <i data-lucide="shield-check" class="w-5 h-5 text-indigo-400"></i>
+                        <span class="text-sm">Secure Payments</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <i data-lucide="refresh-cw" class="w-5 h-5 text-indigo-400"></i>
+                        <span class="text-sm">30-Day Returns</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <i data-lucide="clock" class="w-5 h-5 text-indigo-400"></i>
+                        <span class="text-sm">24/7 Support</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <i data-lucide="award" class="w-5 h-5 text-indigo-400"></i>
+                        <span class="text-sm">Verified Suppliers</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Categories -->
+    <section class="py-12 px-4 sm:px-6 lg:px-8 border-b border-white/10">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex gap-4 overflow-x-auto pb-4 scrollbar-hide" id="categoryContainer">
+                <!-- Categories injected via JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12" id="productsSection">
+        <!-- Section Header -->
+        <div class="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4">
+            <div>
+                <h2 class="text-3xl font-bold mb-2">Trending Now</h2>
+                <p class="text-gray-400">Curated products with fastest shipping times</p>
+            </div>
+            
+            <div class="flex gap-3">
+                <select id="sortSelect" onchange="sortProducts()" class="bg-white/5 border border-white/10 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-indigo-500">
+                    <option value="featured">Featured</option>
+                    <option value="price-low">Price: Low to High</option>
+                    <option value="price-high">Price: High to Low</option>
+                    <option value="fastest">Fastest Shipping</option>
+                </select>
+                
+                <button onclick="toggleFilter()" class="bg-white/5 border border-white/10 rounded-lg px-4 py-2 hover:bg-white/10 transition-colors flex items-center gap-2">
+                    <i data-lucide="filter" class="w-4 h-4"></i>
+                    Filter
+                </button>
+            </div>
+        </div>
+
+        <!-- Products Grid -->
+        <div id="productsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <!-- Products injected via JS -->
+        </div>
+
+        <!-- Loading State -->
+        <div id="loadingState" class="hidden py-20 text-center">
+            <div class="inline-block w-12 h-12 border-4 border-indigo-600 border-t-transparent rounded-full animate-spin"></div>
+            <p class="mt-4 text-gray-400">Loading products from global suppliers...</p>
+        </div>
+    </main>
+
+    <!-- Supplier Network Section -->
+    <section class="py-20 px-4 sm:px-6 lg:px-8 bg-white/5 border-y border-white/10">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold mb-4">Global Supplier Network</h2>
+                <p class="text-gray-400 max-w-2xl mx-auto">
+                    We've partnered with the world's fastest suppliers to ensure delivery in under 10 days to any location.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6" id="supplierGrid">
+                <!-- Suppliers injected via JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section class="py-20 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+                <div class="text-center group">
+                    <div class="w-16 h-16 mx-auto mb-6 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-2xl flex items-center justify-center transform group-hover:rotate-12 transition-transform">
+                        <i data-lucide="rocket" class="w-8 h-8 text-white"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Lightning Fast</h3>
+                    <p class="text-gray-400">AI-optimized routing ensures your package takes the fastest path from supplier to your door.</p>
+                </div>
+                
+                <div class="text-center group">
+                    <div class="w-16 h-16 mx-auto mb-6 bg-gradient-to-br from-pink-500 to-rose-600 rounded-2xl flex items-center justify-center transform group-hover:rotate-12 transition-transform">
+                        <i data-lucide="shield" class="w-8 h-8 text-white"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Buyer Protection</h3>
+                    <p class="text-gray-400">Full refund if not delivered in 10 days. Every purchase is protected by our guarantee.</p>
+                </div>
+                
+                <div class="text-center group">
+                    <div class="w-16 h-16 mx-auto mb-6 bg-gradient-to-br from-amber-500 to-orange-600 rounded-2xl flex items-center justify-center transform group-hover:rotate-12 transition-transform">
+                        <i data-lucide="heart-handshake" class="w-8 h-8 text-white"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Verified Suppliers</h3>
+                    <p class="text-gray-400">Only 5% of suppliers pass our rigorous quality and speed verification process.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="border-t border-white/10 py-12 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <div class="flex items-center gap-2 mb-4">
+                        <div class="w-8 h-8 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-lg flex items-center justify-center">
+                            <i data-lucide="zap" class="w-4 h-4 text-white"></i>
+                        </div>
+                        <span class="text-xl font-bold">SwiftMarket</span>
+                    </div>
+                    <p class="text-gray-400 text-sm">The fastest way to shop global. Delivering excellence in under 10 days.</p>
+                </div>
+                
+                <div>
+                    <h4 class="font-semibold mb-4">Shop</h4>
+                    <ul class="space-y-2 text-gray-400 text-sm">
+                        <li><a href="#" class="hover:text-white transition-colors">New Arrivals</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Best Sellers</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Deals</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Categories</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-semibold mb-4">Support</h4>
+                    <ul class="space-y-2 text-gray-400 text-sm">
+                        <li><a href="#" class="hover:text-white transition-colors">Help Center</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Track Order</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Returns</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Contact Us</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-semibold mb-4">Supply Chain</h4>
+                    <ul class="space-y-2 text-gray-400 text-sm">
+                        <li><a href="#" class="hover:text-white transition-colors">Become a Supplier</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Logistics Partners</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Quality Standards</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="text-gray-500 text-sm">© 2024 SwiftMarket. All rights reserved.</p>
+                <div class="flex gap-4">
+                    <i data-lucide="twitter" class="w-5 h-5 text-gray-400 hover:text-white cursor-pointer transition-colors"></i>
+                    <i data-lucide="instagram" class="w-5 h-5 text-gray-400 hover:text-white cursor-pointer transition-colors"></i>
+                    <i data-lucide="facebook" class="w-5 h-5 text-gray-400 hover:text-white cursor-pointer transition-colors"></i>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Cart Sidebar -->
+    <div id="cartSidebar" class="fixed inset-0 z-50 hidden">
+        <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" onclick="toggleCart()"></div>
+        <div class="absolute right-0 top-0 h-full w-full max-w-md bg-[#0a0a0a] border-l border-white/10 transform translate-x-full transition-transform duration-300" id="cartContent">
+            <div class="p-6 h-full flex flex-col">
+                <div class="flex items-center justify-between mb-6">
+                    <h2 class="text-2xl font-bold">Your Cart</h2>
+                    <button onclick="toggleCart()" class="text-gray-400 hover:text-white">
+                        <i data-lucide="x" class="w-6 h-6"></i>
+                    </button>
+                </div>
+                
+                <div id="cartItems" class="flex-1 overflow-y-auto space-y-4">
+                    <!-- Cart items injected here -->
+                    <div class="text-center text-gray-500 mt-10">
+                        <i data-lucide="shopping-bag" class="w-12 h-12 mx-auto mb-4 opacity-50"></i>
+                        <p>Your cart is empty</p>
+                    </div>
+                </div>
+                
+                <div class="border-t border-white/10 pt-4 mt-4">
+                    <div class="flex justify-between mb-4 text-lg font-semibold">
+                        <span>Total</span>
+                        <span id="cartTotal">$0.00</span>
+                    </div>
+                    <button onclick="checkout()" class="w-full btn-primary text-white py-4 rounded-full font-semibold text-lg">
+                        Checkout
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Supplier Modal -->
+    <div id="supplierModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4">
+        <div class="absolute inset-0 bg-black/80 backdrop-blur-sm" onclick="toggleSupplierModal()"></div>
+        <div class="relative bg-[#0a0a0a] border border-white/10 rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto modal-enter">
+            <div class="p-8">
+                <div class="flex items-center justify-between mb-6">
+                    <h2 class="text-3xl font-bold">Supply Chain Network</h2>
+                    <button onclick="toggleSupplierModal()" class="text-gray-400 hover:text-white">
+                        <i data-lucide="x" class="w-6 h-6"></i>
+                    </button>
+                </div>
+                
+                <p class="text-gray-400 mb-8">
+                    SwiftMarket integrates with premium suppliers and logistics partners to guarantee sub-10-day delivery worldwide.
+                </p>
+
+                <div class="space-y-6" id="modalSupplierList">
+                    <!-- Detailed supplier list -->
+                </div>
+
+                <div class="mt-8 p-6 bg-indigo-600/10 border border-indigo-500/30 rounded-xl">
+                    <h3 class="font-semibold mb-2 flex items-center gap-2">
+                        <i data-lucide="info" class="w-5 h-5 text-indigo-400"></i>
+                        How Our Logistics Work
+                    </h3>
+                    <p class="text-gray-400 text-sm">
+                        When you place an order, our AI selects the optimal supplier based on your location, product availability, 
+                        and real-time shipping speeds. Products are shipped via DHL Express, FedEx International Priority, or 
+                        local premium couriers to ensure delivery within 10 days.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Product Detail Modal -->
+    <div id="productModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4">
+        <div class="absolute inset-0 bg-black/80 backdrop-blur-sm" onclick="closeProductModal()"></div>
+        <div class="relative bg-[#0a0a0a] border border-white/10 rounded-2xl max-w-5xl w-full max-h-[95vh] overflow-y-auto modal-enter" id="productModalContent">
+            <!-- Product details injected here -->
+        </div>
+    </div>
+
+    <!-- Review Image Modal -->
+    <div id="reviewImageModal" class="fixed inset-0 z-[60] hidden flex items-center justify-center p-4 bg-black/90 backdrop-blur-sm" onclick="closeReviewImageModal()">
+        <img id="reviewImageFull" src="" alt="Review Image" class="max-w-full max-h-[90vh] rounded-lg shadow-2xl">
+        <button class="absolute top-4 right-4 text-white/80 hover:text-white">
+            <i data-lucide="x" class="w-8 h-8"></i>
+        </button>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="fixed bottom-4 right-4 bg-indigo-600 text-white px-6 py-4 rounded-xl shadow-2xl flex items-center gap-3 toast z-50">
+        <i data-lucide="check-circle" class="w-5 h-5"></i>
+        <span id="toastMessage">Added to cart!</span>
+    </div>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+
+        // Data
+        const categories = [
+            { id: 'all', name: 'All Products', icon: 'grid' },
+            { id: 'electronics', name: 'Electronics', icon: 'smartphone' },
+            { id: 'fashion', name: 'Fashion', icon: 'shirt' },
+            { id: 'home', name: 'Home & Garden', icon: 'home' },
+            { id: 'sports', name: 'Sports', icon: 'dumbbell' },
+            { id: 'beauty', name: 'Beauty', icon: 'sparkles' },
+            { id: 'toys', name: 'Toys', icon: 'gamepad-2' },
+            { id: 'automotive', name: 'Automotive', icon: 'car' }
+        ];
+
+        const suppliers = [
+            {
+                name: "CJ Dropshipping",
+                location: "China / US / Europe",
+                shippingTime: "5-8 days",
+                rating: 4.8,
+                specialty: "Electronics & Fashion",
+                description: "Direct integration with warehouses in 30+ countries. AI-powered inventory allocation.",
+                partners: ["DHL", "FedEx", "UPS"]
+            },
+            {
+                name: "Spocket EU",
+                location: "Europe / UK",
+                shippingTime: "3-7 days",
+                rating: 4.9,
+                specialty: "Premium Goods",
+                description: "European-based suppliers offering the fastest intra-Europe shipping.",
+                partners: ["DHL Express", "GLS", "DPD"]
+            },
+            {
+                name: "Zendrop Global",
+                location: "Worldwide",
+                shippingTime: "6-10 days",
+                rating: 4.7,
+                specialty: "General Merchandise",
+                description: "Automated fulfillment with real-time tracking and quality control.",
+                partners: ["FedEx", "USPS", "Local Couriers"]
+            },
+            {
+                name: "Sellvia Fast",
+                location: "US / Europe",
+                shippingTime: "1-3 days",
+                rating: 4.9,
+                specialty: "US Market",
+                description: "US-based fulfillment centers for ultra-fast domestic delivery.",
+                partners: ["USPS Priority", "FedEx Ground", "UPS"]
+            },
+            {
+                name: "Modalyst Express",
+                location: "Global",
+                shippingTime: "5-9 days",
+                rating: 4.6,
+                specialty: "Luxury & Fashion",
+                description: "Curated supplier network with emphasis on high-quality fashion brands.",
+                partners: ["DHL", "Aramex", "SF Express"]
+            },
+            {
+                name: "Syncee Direct",
+                location: "US / EU / Asia",
+                shippingTime: "4-8 days",
+                rating: 4.7,
+                specialty: "Home & Garden",
+                description: "Specialized in bulky items with optimized freight forwarding.",
+                partners: ["FedEx Freight", "DHL", "Local Logistics"]
+            }
+        ];
+
+        // Sample Reviews Data
+        const reviewsData = {
+            1: [ // Product ID 1
+                {
+                    id: 101,
+                    author: "Sarah Johnson",
+                    avatar: "https://i.pravatar.cc/150?img=1",
+                    rating: 5,
+                    date: "2024-01-15",
+                    verified: true,
+                    title: "Amazing sound quality!",
+                    content: "These headphones exceeded my expectations. The noise cancellation is top-notch and the battery lasts forever. Shipping was incredibly fast - arrived in just 4 days!",
+                    helpful: 24,
+                    images: ["https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=300&h=300&fit=crop"]
+                },
+                {
+                    id: 102,
+                    author: "Michael Chen",
+                    avatar: "https://i.pravatar.cc/150?img=3",
+                    rating: 4,
+                    date: "2024-01-12",
+                    verified: true,
+                    title: "Great but pricey",
+                    content: "Excellent build quality and sound. A bit expensive but worth it for the quality. Delivery was on time as promised.",
+                    helpful: 12,
+                    images: []
+                },
+                {
+                    id: 103,
+                    author: "Emma Davis",
+                    avatar: "https://i.pravatar.cc/150?img=5",
+                    rating: 5,
+                    date: "2024-01-10",
+                    verified: false,
+                    title: "Perfect for workouts",
+                    content: "I use these at the gym every day. They stay in place and the sweat resistance is great. Highly recommend!",
+                    helpful: 8,
+                    images: ["https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=300&h=300&fit=crop"]
+                }
+            ],
+            2: [
+                {
+                    id: 201,
+                    author: "Robert Wilson",
+                    avatar: "https://i.pravatar.cc/150?img=8",
+                    rating: 5,
+                    date: "2024-01-18",
+                    verified: true,
+                    title: "Smart home game changer",
+                    content: "This hub connects all my devices seamlessly. The AI assistant is surprisingly helpful. Setup took 5 minutes.",
+                    helpful: 45,
+                    images: []
+                }
+            ],
+            4: [
+                {
+                    id: 401,
+                    author: "Jennifer Lee",
+                    avatar: "https://i.pravatar.cc/150?img=9",
+                    rating: 5,
+                    date: "2024-01-20",
+                    verified: true,
+                    title: "Professional quality drone",
+                    content: "The 4K footage is stunning. Gimbal stabilization works perfectly. Best drone I've owned and it arrived in 5 days!",
+                    helpful: 67,
+                    images: ["https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=300&h=300&fit=crop", "https://images.unsplash.com/photo-1507582020474-9a35b7d455d9?w=300&h=300&fit=crop"]
+                },
+                {
+                    id: 402,
+                    author: "David Martinez",
+                    avatar: "https://i.pravatar.cc/150?img=11",
+                    rating: 4,
+                    date: "2024-01-16",
+                    verified: true,
+                    title: "Great drone, learning curve",
+                    content: "Excellent build quality but takes time to master all features. Customer support was helpful when I had questions.",
+                    helpful: 23,
+                    images: []
+                }
+            ]
+        };
+
+        const products = [
+            {
+                id: 1,
+                name: "Wireless Noise-Canceling Headphones Pro",
+                category: "electronics",
+                price: 299.99,
+                originalPrice: 399.99,
+                image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500&h=500&fit=crop",
+                supplier: "CJ Dropshipping",
+                shippingDays: 5,
+                rating: 4.8,
+                reviews: 2341,
+                badge: "Best Seller"
+            },
+            {
+                id: 2,
+                name: "Smart Home Hub with AI Assistant",
+                category: "electronics",
+                price: 149.99,
+                originalPrice: 199.99,
+                image: "https://images.unsplash.com/photo-1558089687-f282ffcbc126?w=500&h=500&fit=crop",
+                supplier: "Sellvia Fast",
+                shippingDays: 2,
+                rating: 4.9,
+                reviews: 892,
+                badge: "Fastest"
+            },
+            {
+                id: 3,
+                name: "Premium Leather Minimalist Backpack",
+                category: "fashion",
+                price: 189.99,
+                originalPrice: 249.99,
+                image: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=500&h=500&fit=crop",
+                supplier: "Spocket EU",
+                shippingDays: 4,
+                rating: 4.7,
+                reviews: 567,
+                badge: null
+            },
+            {
+                id: 4,
+                name: "4K Ultra HD Drone with Gimbal",
+                category: "electronics",
+                price: 799.99,
+                originalPrice: 999.99,
+                image: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=500&h=500&fit=crop",
+                supplier: "CJ Dropshipping",
+                shippingDays: 6,
+                rating: 4.9,
+                reviews: 1234,
+                badge: "Top Rated"
+            },
+            {
+                id: 5,
+                name: "Organic Cotton Linen Bedding Set",
+                category: "home",
+                price: 129.99,
+                originalPrice: 179.99,
+                image: "https://images.unsplash.com/photo-1631679706909-1844bbd07221?w=500&h=500&fit=crop",
+                supplier: "Syncee Direct",
+                shippingDays: 7,
+                rating: 4.6,
+                reviews: 445,
+                badge: null
+            },
+            {
+                id: 6,
+                name: "Professional Running Shoes",
+                category: "sports",
+                price: 159.99,
+                originalPrice: 209.99,
+                image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=500&h=500&fit=crop",
+                supplier: "Zendrop Global",
+                shippingDays: 5,
+                rating: 4.8,
+                reviews: 2156,
+                badge: "Popular"
+            },
+            {
+                id: 7,
+                name: "Smart Fitness Watch Ultra",
+                category: "electronics",
+                price: 249.99,
+                originalPrice: 329.99,
+                image: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500&h=500&fit=crop",
+                supplier: "Sellvia Fast",
+                shippingDays: 3,
+                rating: 4.7,
+                reviews: 1567,
+                badge: null
+            },
+            {
+                id: 8,
+                name: "Designer Sunglasses Collection",
+                category: "fashion",
+                price: 199.99,
+                originalPrice: 289.99,
+                image: "https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=500&h=500&fit=crop",
+                supplier: "Modalyst Express",
+                shippingDays: 6,
+                rating: 4.9,
+                reviews: 892,
+                badge: "Luxury"
+            },
+            {
+                id: 9,
+                name: "Portable Espresso Maker",
+                category: "home",
+                price: 89.99,
+                originalPrice: 119.99,
+                image: "https://images.unsplash.com/photo-1517080319261-52776a5c0f0e?w=500&h=500&fit=crop",
+                supplier: "Spocket EU",
+                shippingDays: 4,
+                rating: 4.5,
+                reviews: 334,
+                badge: null
+            },
+            {
+                id: 10,
+                name: "Yoga Mat Premium Eco-Friendly",
+                category: "sports",
+                price: 69.99,
+                originalPrice: 89.99,
+                image: "https://images.unsplash.com/photo-1601925260368-ae2f83cf8b7f?w=500&h=500&fit=crop",
+                supplier: "Zendrop Global",
+                shippingDays: 5,
+                rating: 4.8,
+                reviews: 1123,
+                badge: "Eco-Friendly"
+            },
+            {
+                id: 11,
+                name: "Mechanical Gaming Keyboard RGB",
+                category: "electronics",
+                price: 179.99,
+                originalPrice: 229.99,
+                image: "https://images.unsplash.com/photo-1595225476474-87563907a212?w=500&h=500&fit=crop",
+                supplier: "CJ Dropshipping",
+                shippingDays: 5,
+                rating: 4.9,
+                reviews: 3342,
+                badge: "Gaming"
+            },
+            {
+                id: 12,
+                name: "Luxury Skincare Set",
+                category: "beauty",
+                price: 299.99,
+                originalPrice: 399.99,
+                image: "https://images.unsplash.com/photo-1571781926291-c477ebfd024b?w=500&h=500&fit=crop",
+                supplier: "Modalyst Express",
+                shippingDays: 6,
+                rating: 4.9,
+                reviews: 667,
+                badge: "Premium"
+            }
+        ];
+
+        let cart = [];
+        let currentCategory = 'all';
+        let currentSort = 'featured';
+        let currentReviewTab = 'all';
+        let currentReviewSort = 'newest';
+        let userVotes = new Set();
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            renderCategories();
+            renderProducts();
+            renderSuppliers();
+            renderModalSuppliers();
+        });
+
+        // Render Categories
+        function renderCategories() {
+            const container = document.getElementById('categoryContainer');
+            container.innerHTML = categories.map(cat => `
+                <button onclick="setCategory('${cat.id}')" 
+                        class="category-pill flex items-center gap-2 px-6 py-3 rounded-full border border-white/10 bg-white/5 whitespace-nowrap ${currentCategory === cat.id ? 'bg-gradient-to-r from-indigo-600 to-purple-600 border-transparent' : ''}">
+                    <i data-lucide="${cat.icon}" class="w-4 h-4"></i>
+                    <span class="font-medium">${cat.name}</span>
+                </button>
+            `).join('');
+            lucide.createIcons();
+        }
+
+        // Render Products
+        function renderProducts() {
+            const grid = document.getElementById('productsGrid');
+            const loading = document.getElementById('loadingState');
+            
+            // Filter
+            let filtered = currentCategory === 'all' 
+                ? products 
+                : products.filter(p => p.category === currentCategory);
+            
+            // Sort
+            if (currentSort === 'price-low') filtered.sort((a, b) => a.price - b.price);
+            if (currentSort === 'price-high') filtered.sort((a, b) => b.price - a.price);
+            if (currentSort === 'fastest') filtered.sort((a, b) => a.shippingDays - b.shippingDays);
+            
+            // Show loading briefly for effect
+            grid.classList.add('hidden');
+            loading.classList.remove('hidden');
+            
+            setTimeout(() => {
+                loading.classList.add('hidden');
+                grid.classList.remove('hidden');
+                
+                grid.innerHTML = filtered.map(product => `
+                    <div class="product-card bg-white/5 border border-white/10 rounded-2xl overflow-hidden group cursor-pointer" onclick="openProductModal(${product.id})">
+                        <div class="relative aspect-square overflow-hidden">
+                            <img src="${product.image}" alt="${product.name}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                            ${product.badge ? `
+                                <div class="absolute top-3 left-3 bg-indigo-600 text-white text-xs font-bold px-3 py-1 rounded-full">
+                                    ${product.badge}
+                                </div>
+                            ` : ''}
+                            <div class="absolute top-3 right-3 bg-black/60 backdrop-blur-sm text-white text-xs font-bold px-2 py-1 rounded-lg flex items-center gap-1">
+                                <i data-lucide="clock" class="w-3 h-3"></i>
+                                ${product.shippingDays} days
+                            </div>
+                            <button onclick="event.stopPropagation(); addToCart(${product.id})" 
+                                    class="absolute bottom-3 right-3 w-10 h-10 bg-white text-black rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all transform translate-y-2 group-hover:translate-y-0 hover:bg-indigo-600 hover:text-white">
+                                <i data-lucide="plus" class="w-5 h-5"></i>
+                            </button>
+                        </div>
+                        <div class="p-4">
+                            <div class="flex items-center gap-1 mb-2">
+                                <i data-lucide="star" class="w-4 h-4 text-yellow-500 fill-yellow-500"></i>
+                                <span class="text-sm font-medium">${product.rating}</span>
+                                <span class="text-gray-500 text-sm">(${product.reviews})</span>
+                            </div>
+                            <h3 class="font-semibold mb-2 line-clamp-2 group-hover:text-indigo-400 transition-colors">${product.name}</h3>
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <span class="text-xl font-bold text-white">$${product.price}</span>
+                                    <span class="text-sm text-gray-500 line-through ml-2">$${product.originalPrice}</span>
+                                </div>
+                                <span class="text-xs text-gray-400 bg-white/5 px-2 py-1 rounded">${product.supplier}</span>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+                
+                lucide.createIcons();
+            }, 300);
+        }
+
+        // Render Suppliers
+        function renderSuppliers() {
+            const grid = document.getElementById('supplierGrid');
+            grid.innerHTML = suppliers.slice(0, 3).map(supplier => `
+                <div class="supplier-card rounded-2xl p-6">
+                    <div class="flex items-start justify-between mb-4">
+                        <div>
+                            <h3 class="font-bold text-lg mb-1">${supplier.name}</h3>
+                            <p class="text-gray-400 text-sm">${supplier.location}</p>
+                        </div>
+                        <div class="shipping-badge text-white text-xs font-bold px-3 py-1 rounded-full">
+                            ${supplier.shippingTime}
+                        </div>
+                    </div>
+                    <p class="text-gray-400 text-sm mb-4">${supplier.description}</p>
+                    <div class="flex items-center justify-between text-sm">
+                        <span class="text-gray-500">Rating: <span class="text-white font-semibold">${supplier.rating}/5.0</span></span>
+                        <span class="text-indigo-400">${supplier.specialty}</span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Render Modal Suppliers
+        function renderModalSuppliers() {
+            const container = document.getElementById('modalSupplierList');
+            container.innerHTML = suppliers.map(supplier => `
+                <div class="border border-white/10 rounded-xl p-6 hover:bg-white/5 transition-colors">
+                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                        <div class="flex-1">
+                            <div class="flex items-center gap-3 mb-2">
+                                <h3 class="font-bold text-xl">${supplier.name}</h3>
+                                <div class="flex items-center gap-1 bg-yellow-500/20 text-yellow-500 px-2 py-1 rounded text-sm">
+                                    <i data-lucide="star" class="w-3 h-3 fill-yellow-500"></i>
+                                    ${supplier.rating}
+                                </div>
+                            </div>
+                            <p class="text-gray-400 mb-3">${supplier.description}</p>
+                            <div class="flex flex-wrap gap-2">
+                                ${supplier.partners.map(p => `
+                                    <span class="text-xs bg-white/5 border border-white/10 px-3 py-1 rounded-full">${p}</span>
+                                `).join('')}
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <div class="shipping-badge text-white text-sm font-bold px-4 py-2 rounded-full mb-2 inline-block">
+                                ${supplier.shippingTime} delivery
+                            </div>
+                            <p class="text-gray-500 text-sm">${supplier.location}</p>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+            lucide.createIcons();
+        }
+
+        // Review Functions
+        function getReviewsForProduct(productId) {
+            return reviewsData[productId] || [];
+        }
+
+        function calculateRatingBreakdown(reviews) {
+            const breakdown = { 5: 0, 4: 0, 3: 0, 2: 0, 1: 0 };
+            reviews.forEach(r => breakdown[r.rating]++);
+            return breakdown;
+        }
+
+        function renderReviewsSection(productId) {
+            const reviews = getReviewsForProduct(productId);
+            const totalReviews = reviews.length;
+            const avgRating = totalReviews > 0 ? (reviews.reduce((a, b) => a + b.rating, 0) / totalReviews).toFixed(1) : 0;
+            const breakdown = calculateRatingBreakdown(reviews);
+            
+            // Filter reviews based on tab
+            let filteredReviews = reviews;
+            if (currentReviewTab === 'verified') {
+                filteredReviews = reviews.filter(r => r.verified);
+            } else if (currentReviewTab === 'images') {
+                filteredReviews = reviews.filter(r => r.images && r.images.length > 0);
+            } else if (currentReviewTab === '5star') {
+                filteredReviews = reviews.filter(r => r.rating === 5);
+            }
+
+            // Sort reviews
+            if (currentReviewSort === 'newest') {
+                filteredReviews.sort((a, b) => new Date(b.date) - new Date(a.date));
+            } else if (currentReviewSort === 'oldest') {
+                filteredReviews.sort((a, b) => new Date(a.date) - new Date(b.date));
+            } else if (currentReviewSort === 'helpful') {
+                filteredReviews.sort((a, b) => b.helpful - a.helpful);
+            } else if (currentReviewSort === 'highest') {
+                filteredReviews.sort((a, b) => b.rating - a.rating);
+            } else if (currentReviewSort === 'lowest') {
+                filteredReviews.sort((a, b) => a.rating - b.rating);
+            }
+
+            return `
+                <div class="mt-8 border-t border-white/10 pt-8">
+                    <h3 class="text-2xl font-bold mb-6">Customer Reviews</h3>
+                    
+                    <!-- Rating Summary -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+                        <div class="bg-white/5 rounded-2xl p-6">
+                            <div class="flex items-end gap-4 mb-4">
+                                <span class="text-5xl font-bold">${avgRating}</span>
+                                <div class="mb-2">
+                                    <div class="flex gap-1 mb-1">
+                                        ${renderStars(Math.round(avgRating))}
+                                    </div>
+                                    <p class="text-gray-400 text-sm">Based on ${totalReviews} reviews</p>
+                                </div>
+                            </div>
+                            <button onclick="openReviewForm(${productId})" class="w-full btn-primary text-white py-3 rounded-full font-semibold flex items-center justify-center gap-2">
+                                <i data-lucide="pen-line" class="w-4 h-4"></i>
+                                Write a Review
+                            </button>
+                        </div>
+                        
+                        <div class="space-y-2">
+                            ${[5, 4, 3, 2, 1].map(star => {
+                                const count = breakdown[star];
+                                const percentage = totalReviews > 0 ? (count / totalReviews * 100) : 0;
+                                return `
+                                    <div class="flex items-center gap-3">
+                                        <span class="text-sm w-8">${star} star</span>
+                                        <div class="flex-1 progress-bar h-2">
+                                            <div class="progress-fill" style="width: ${percentage}%"></div>
+                                        </div>
+                                        <span class="text-sm text-gray-400 w-8 text-right">${count}</span>
+                                    </div>
+                                `;
+                            }).join('')}
+                        </div>
+                    </div>
+
+                    <!-- Review Filters -->
+                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6 pb-4 border-b border-white/10">
+                        <div class="flex gap-2 overflow-x-auto pb-2 md:pb-0">
+                            ${[
+                                { id: 'all', label: 'All Reviews' },
+                                { id: 'verified', label: 'Verified Purchase' },
+                                { id: 'images', label: 'With Images' },
+                                { id: '5star', label: '5 Star Only' }
+                            ].map(tab => `
+                                <button onclick="setReviewTab('${tab.id}', ${productId})" 
+                                        class="review-tab whitespace-nowrap px-4 py-2 text-sm font-medium transition-colors ${currentReviewTab === tab.id ? 'text-white active' : 'text-gray-400 hover:text-white'}">
+                                    ${tab.label}
+                                </button>
+                            `).join('')}
+                        </div>
+                        
+                        <select onchange="setReviewSort(this.value, ${productId})" class="review-sort-select rounded-lg px-4 py-2 text-white text-sm">
+                            <option value="newest" ${currentReviewSort === 'newest' ? 'selected' : ''}>Newest First</option>
+                            <option value="oldest" ${currentReviewSort === 'oldest' ? 'selected' : ''}>Oldest First</option>
+                            <option value="helpful" ${currentReviewSort === 'helpful' ? 'selected' : ''}>Most Helpful</option>
+                            <option value="highest" ${currentReviewSort === 'highest' ? 'selected' : ''}>Highest Rated</option>
+                            <option value="lowest" ${currentReviewSort === 'lowest' ? 'selected' : ''}>Lowest Rated</option>
+                        </select>
+                    </div>
+
+                    <!-- Reviews List -->
+                    <div class="space-y-6">
+                        ${filteredReviews.length === 0 ? `
+                            <div class="text-center py-12 text-gray-500">
+                                <i data-lucide="message-circle" class="w-12 h-12 mx-auto mb-4 opacity-50"></i>
+                                <p>No reviews yet. Be the first to review!</p>
+                            </div>
+                        ` : filteredReviews.map(review => `
+                            <div class="review-card rounded-xl p-6 bg-white/5">
+                                <div class="flex items-start justify-between mb-4">
+                                    <div class="flex items-center gap-3">
+                                        <img src="${review.avatar}" alt="${review.author}" class="w-10 h-10 rounded-full object-cover">
+                                        <div>
+                                            <div class="flex items-center gap-2">
+                                                <span class="font-semibold">${review.author}</span>
+                                                ${review.verified ? `
+                                                    <span class="verified-badge text-white text-xs px-2 py-0.5 rounded-full flex items-center gap-1">
+                                                        <i data-lucide="check-circle" class="w-3 h-3"></i>
+                                                        Verified
+                                                    </span>
+                                                ` : ''}
+                                            </div>
+                                            <div class="flex items-center gap-2 text-sm text-gray-400">
+                                                <span>${formatDate(review.date)}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="flex gap-1">
+                                        ${renderStars(review.rating)}
+                                    </div>
+                                </div>
+                                
+                                <h4 class="font-semibold mb-2">${review.title}</h4>
+                                <p class="text-gray-300 mb-4 leading-relaxed">${review.content}</p>
+                                
+                                ${review.images && review.images.length > 0 ? `
+                                    <div class="flex gap-3 mb-4">
+                                        ${review.images.map((img, idx) => `
+                                            <img src="${img}" alt="Review image" 
+                                                 class="w-20 h-20 object-cover rounded-lg cursor-pointer hover:opacity-80 transition-opacity"
+                                                 onclick="openReviewImage('${img}')">
+                                        `).join('')}
+                                    </div>
+                                ` : ''}
+                                
+                                <div class="flex items-center gap-4 pt-4 border-t border-white/10">
+                                    <button onclick="toggleHelpful(${review.id}, ${productId})" 
+                                            class="review-vote-btn flex items-center gap-2 text-sm text-gray-400 px-3 py-1.5 rounded-full ${userVotes.has(review.id) ? 'voted' : ''}">
+                                        <i data-lucide="thumbs-up" class="w-4 h-4"></i>
+                                        <span>Helpful (${review.helpful})</span>
+                                    </button>
+                                    <button class="text-sm text-gray-400 hover:text-white transition-colors">
+                                        Report
+                                    </button>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+
+                <!-- Review Form Modal -->
+                <div id="reviewFormModal" class="fixed inset-0 z-[60] hidden flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
+                    <div class="bg-[#0a0a0a] border border-white/10 rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto modal-enter" onclick="event.stopPropagation()">
+                        <div class="p-8">
+                            <div class="flex items-center justify-between mb-6">
+                                <h3 class="text-2xl font-bold">Write a Review</h3>
+                                <button onclick="closeReviewForm()" class="text-gray-400 hover:text-white">
+                                    <i data-lucide="x" class="w-6 h-6"></i>
+                                </button>
+                            </div>
+                            
+                            <form onsubmit="submitReview(event, ${productId})" class="space-y-6">
+                                <div>
+                                    <label class="block text-sm font-medium mb-2">Overall Rating</label>
+                                    <div class="star-rating text-2xl">
+                                        ${[5, 4, 3, 2, 1].map(num => `
+                                            <input type="radio" id="star${num}" name="rating" value="${num}" required>
+                                            <label for="star${num}" class="hover:scale-110 transition-transform">
+                                                <i data-lucide="star" class="w-8 h-8 fill-current"></i>
+                                            </label>
+                                        `).join('')}
+                                    </div>
+                                </div>
+                                
+                                <div>
+                                    <label class="block text-sm font-medium mb-2">Review Title</label>
+                                    <input type="text" name="title" required placeholder="Summarize your experience" 
+                                           class="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-indigo-500 transition-colors">
+                                </div>
+                                
+                                <div>
+                                    <label class="block text-sm font-medium mb-2">Review</label>
+                                    <textarea name="content" required rows="4" placeholder="Share your thoughts about the product..." 
+                                              class="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-indigo-500 transition-colors resize-none"></textarea>
+                                </div>
+                                
+                                <div>
+                                    <label class="block text-sm font-medium mb-2">Add Photos (Optional)</label>
+                                    <div class="review-image-upload rounded-xl p-8 text-center cursor-pointer" onclick="document.getElementById('reviewImages').click()">
+                                        <i data-lucide="camera" class="w-8 h-8 mx-auto mb-2 text-gray-400"></i>
+                                        <p class="text-sm text-gray-400">Click to upload images</p>
+                                        <input type="file" id="reviewImages" multiple accept="image/*" class="hidden" onchange="handleReviewImages(this)">
+                                    </div>
+                                    <div id="reviewImagePreview" class="flex gap-3 mt-3 flex-wrap"></div>
+                                </div>
+                                
+                                <div class="flex items-center gap-2">
+                                    <input type="checkbox" id="verifiedPurchase" name="verified" class="w-4 h-4 rounded border-white/10 bg-white/5 text-indigo-600 focus:ring-indigo-600">
+                                    <label for="verifiedPurchase" class="text-sm text-gray-400">I certify this is a genuine purchase</label>
+                                </div>
+                                
+                                <button type="submit" class="w-full btn-primary text-white py-4 rounded-full font-semibold text-lg">
+                                    Submit Review
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderStars(rating) {
+            return Array(5).fill(0).map((_, i) => `
+                <i data-lucide="star" class="w-4 h-4 ${i < rating ? 'text-yellow-500 fill-yellow-500' : 'text-gray-600'}"></i>
+            `).join('');
+        }
+
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            const now = new Date();
+            const diffTime = Math.abs(now - date);
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+            
+            if (diffDays === 1) return 'Yesterday';
+            if (diffDays < 7) return `${diffDays} days ago`;
+            if (diffDays < 30) return `${Math.floor(diffDays / 7)} weeks ago`;
+            return date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+        }
+
+        function setReviewTab(tab, productId) {
+            currentReviewTab = tab;
+            // Re-render just the reviews section
+            const reviewsHtml = renderReviewsSection(productId);
+            const product = products.find(p => p.id === productId);
+            
+            // Update modal content
+            document.getElementById('productModalContent').innerHTML = generateProductModalContent(product, reviewsHtml);
+            lucide.createIcons();
+        }
+
+        function setReviewSort(sort, productId) {
+            currentReviewSort = sort;
+            const reviewsHtml = renderReviewsSection(productId);
+            const product = products.find(p => p.id === productId);
+            document.getElementById('productModalContent').innerHTML = generateProductModalContent(product, reviewsHtml);
+            lucide.createIcons();
+        }
+
+        function openReviewForm(productId) {
+            document.getElementById('reviewFormModal').classList.remove('hidden');
+        }
+
+        function closeReviewForm() {
+            document.getElementById('reviewFormModal').classList.add('hidden');
+            document.getElementById('reviewImagePreview').innerHTML = '';
+        }
+
+        function handleReviewImages(input) {
+            const preview = document.getElementById('reviewImagePreview');
+            preview.innerHTML = '';
+            
+            Array.from(input.files).forEach(file => {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    preview.innerHTML += `
+                        <div class="relative w-20 h-20">
+                            <img src="${e.target.result}" class="w-full h-full object-cover rounded-lg">
+                            <button type="button" class="absolute -top-2 -right-2 w-6 h-6 bg-red-500 rounded-full flex items-center justify-center text-white text-xs" onclick="this.parentElement.remove()">
+                                <i data-lucide="x" class="w-3 h-3"></i>
+                            </button>
+                        </div>
+                    `;
+                    lucide.createIcons();
+                };
+                reader.readAsDataURL(file);
+            });
+        }
+
+        function submitReview(event, productId) {
+            event.preventDefault();
+            const form = event.target;
+            const formData = new FormData(form);
+            
+            const newReview = {
+                id: Date.now(),
+                author: "You",
+                avatar: "https://i.pravatar.cc/150?img=12",
+                rating: parseInt(formData.get('rating')),
+                date: new Date().toISOString().split('T')[0],
+                verified: formData.get('verified') === 'on',
+                title: formData.get('title'),
+                content: formData.get('content'),
+                helpful: 0,
+                images: []
+            };
+            
+            // Add to reviews data
+            if (!reviewsData[productId]) reviewsData[productId] = [];
+            reviewsData[productId].unshift(newReview);
+            
+            // Update product review count
+            const product = products.find(p => p.id === productId);
+            product.reviews++;
+            
+            closeReviewForm();
+            showToast('Review submitted successfully!');
+            
+            // Refresh modal
+            openProductModal(productId);
+        }
+
+        function toggleHelpful(reviewId, productId) {
+            if (userVotes.has(reviewId)) {
+                showToast('You already voted for this review');
+                return;
+            }
+            
+            userVotes.add(reviewId);
+            const reviews = reviewsData[productId];
+            const review = reviews.find(r => r.id === reviewId);
+            if (review) {
+                review.helpful++;
+                const reviewsHtml = renderReviewsSection(productId);
+                const product = products.find(p => p.id === productId);
+                document.getElementById('productModalContent').innerHTML = generateProductModalContent(product, reviewsHtml);
+                lucide.createIcons();
+                showToast('Marked as helpful!');
+            }
+        }
+
+        function openReviewImage(src) {
+            document.getElementById('reviewImageFull').src = src;
+            document.getElementById('reviewImageModal').classList.remove('hidden');
+        }
+
+        function closeReviewImageModal() {
+            document.getElementById('reviewImageModal').classList.add('hidden');
+        }
+
+        function generateProductModalContent(product, reviewsHtml) {
+            return `
+                <div class="relative">
+                    <button onclick="closeProductModal()" class="absolute top-4 right-4 z-10 w-10 h-10 bg-black/50 rounded-full flex items-center justify-center text-white hover:bg-black/70 transition-colors">
+                        <i data-lucide="x" class="w-6 h-6"></i>
+                    </button>
+                    <div class="aspect-video overflow-hidden">
+                        <img src="${product.image}" alt="${product.name}" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-8">
+                        <div class="flex items-start justify-between mb-4">
+                            <div>
+                                <div class="flex items-center gap-2 mb-2">
+                                    <span class="bg-indigo-600/20 text-indigo-400 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide">${product.category}</span>
+                                    <div class="flex items-center gap-1 text-yellow-500 cursor-pointer hover:text-yellow-400" onclick="document.getElementById('reviewsSection').scrollIntoView({behavior: 'smooth'})">
+                                        <i data-lucide="star" class="w-4 h-4 fill-yellow-500"></i>
+                                        <span class="font-semibold">${product.rating}</span>
+                                        <span class="text-gray-500">(${product.reviews} reviews)</span>
+                                    </div>
+                                </div>
+                                <h2 class="text-3xl font-bold mb-2">${product.name}</h2>
+                                <p class="text-gray-400">Ships from ${product.supplier} in ${product.shippingDays} days</p>
+                            </div>
+                            <div class="text-right">
+                                <div class="text-3xl font-bold text-white">$${product.price}</div>
+                                <div class="text-gray-500 line-through">$${product.originalPrice}</div>
+                                <div class="text-green-400 text-sm font-semibold mt-1">Save ${Math.round((1 - product.price/product.originalPrice) * 100)}%</div>
+                            </div>
+                        </div>
+                        
+                        <div class="border-t border-white/10 my-6 pt-6">
+                            <h3 class="font-semibold mb-3">Supplier Information</h3>
+                            <div class="bg-white/5 rounded-xl p-4 flex items-center gap-4">
+                                <div class="w-12 h-12 bg-indigo-600/20 rounded-full flex items-center justify-center">
+                                    <i data-lucide="truck" class="w-6 h-6 text-indigo-400"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <div class="font-semibold">${product.supplier}</div>
+                                    <div class="text-sm text-gray-400">Guaranteed delivery in ${product.shippingDays} days or full refund</div>
+                                </div>
+                                <div class="shipping-badge text-white text-xs font-bold px-3 py-1 rounded-full">
+                                    Verified
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="flex gap-4 mt-8">
+                            <button onclick="addToCart(${product.id}); closeProductModal()" class="flex-1 btn-primary text-white py-4 rounded-full font-semibold text-lg flex items-center justify-center gap-2">
+                                <i data-lucide="shopping-cart" class="w-5 h-5"></i>
+                                Add to Cart
+                            </button>
+                            <button class="px-6 py-4 border border-white/20 rounded-full hover:bg-white/5 transition-colors">
+                                <i data-lucide="heart" class="w-6 h-6"></i>
+                            </button>
+                        </div>
+                        
+                        <div class="mt-6 grid grid-cols-3 gap-4 text-center text-sm">
+                            <div class="bg-white/5 rounded-lg p-3">
+                                <i data-lucide="shield-check" class="w-5 h-5 mx-auto mb-2 text-indigo-400"></i>
+                                <span class="text-gray-400">Authenticity Guaranteed</span>
+                            </div>
+                            <div class="bg-white/5 rounded-lg p-3">
+                                <i data-lucide="refresh-cw" class="w-5 h-5 mx-auto mb-2 text-indigo-400"></i>
+                                <span class="text-gray-400">30-Day Returns</span>
+                            </div>
+                            <div class="bg-white/5 rounded-lg p-3">
+                                <i data-lucide="headphones" class="w-5 h-5 mx-auto mb-2 text-indigo-400"></i>
+                                <span class="text-gray-400">24/7 Support</span>
+                            </div>
+                        </div>
+
+                        <div id="reviewsSection">
+                            ${reviewsHtml}
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Actions
+        function setCategory(id) {
+            currentCategory = id;
+            renderCategories();
+            renderProducts();
+        }
+
+        function sortProducts() {
+            currentSort = document.getElementById('sortSelect').value;
+            renderProducts();
+        }
+
+        function handleSearch() {
+            const query = document.getElementById('searchInput').value.toLowerCase();
+            if (!query) return;
+            
+            const filtered = products.filter(p => p.name.toLowerCase().includes(query));
+            const grid = document.getElementById('productsGrid');
+            
+            if (filtered.length === 0) {
+                grid.innerHTML = `
+                    <div class="col-span-full text-center py-20">
+                        <i data-lucide="search-x" class="w-16 h-16 mx-auto mb-4 text-gray-600"></i>
+                        <h3 class="text-xl font-semibold mb-2">No products found</h3>
+                        <p class="text-gray-400">Try adjusting your search terms</p>
+                    </div>
+                `;
+            } else {
+                grid.innerHTML = filtered.map(product => `
+                    <div class="product-card bg-white/5 border border-white/10 rounded-2xl overflow-hidden group cursor-pointer" onclick="openProductModal(${product.id})">
+                        <div class="relative aspect-square overflow-hidden">
+                            <img src="${product.image}" alt="${product.name}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                            <div class="absolute top-3 right-3 bg-black/60 backdrop-blur-sm text-white text-xs font-bold px-2 py-1 rounded-lg flex items-center gap-1">
+                                <i data-lucide="clock" class="w-3 h-3"></i>
+                                ${product.shippingDays} days
+                            </div>
+                        </div>
+                        <div class="p-4">
+                            <h3 class="font-semibold mb-2 line-clamp-2">${product.name}</h3>
+                            <div class="flex items-center justify-between">
+                                <span class="text-xl font-bold text-white">$${product.price}</span>
+                                <button onclick="event.stopPropagation(); addToCart(${product.id})" class="w-8 h-8 bg-indigo-600 rounded-full flex items-center justify-center hover:bg-indigo-700 transition-colors">
+                                    <i data-lucide="plus" class="w-4 h-4"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+            }
+            lucide.createIcons();
+            scrollToProducts();
+        }
+
+        function scrollToProducts() {
+            document.getElementById('productsSection').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Cart Functions
+        function addToCart(productId) {
+            const product = products.find(p => p.id === productId);
+            const existing = cart.find(item => item.id === productId);
+            
+            if (existing) {
+                existing.quantity++;
+            } else {
+                cart.push({ ...product, quantity: 1 });
+            }
+            
+            updateCartUI();
+            showToast(`${product.name} added to cart!`);
+        }
+
+        function removeFromCart(productId) {
+            cart = cart.filter(item => item.id !== productId);
+            updateCartUI();
+        }
+
+        function updateQuantity(productId, delta) {
+            const item = cart.find(item => item.id === productId);
+            if (item) {
+                item.quantity += delta;
+                if (item.quantity <= 0) removeFromCart(productId);
+                else updateCartUI();
+            }
+        }
+
+        function updateCartUI() {
+            const count = cart.reduce((sum, item) => sum + item.quantity, 0);
+            const badge = document.getElementById('cartCount');
+            const items = document.getElementById('cartItems');
+            const total = document.getElementById('cartTotal');
+            
+            if (count > 0) {
+                badge.textContent = count;
+                badge.classList.remove('hidden');
+            } else {
+                badge.classList.add('hidden');
+            }
+            
+            if (cart.length === 0) {
+                items.innerHTML = `
+                    <div class="text-center text-gray-500 mt-10">
+                        <i data-lucide="shopping-bag" class="w-12 h-12 mx-auto mb-4 opacity-50"></i>
+                        <p>Your cart is empty</p>
+                        <button onclick="toggleCart(); scrollToProducts()" class="mt-4 text-indigo-400 hover:text-indigo-300">Start Shopping</button>
+                    </div>
+                `;
+            } else {
+                items.innerHTML = cart.map(item => `
+                    <div class="flex gap-4 bg-white/5 border border-white/10 rounded-xl p-4">
+                        <img src="${item.image}" alt="${item.name}" class="w-20 h-20 object-cover rounded-lg">
+                        <div class="flex-1">
+                            <h4 class="font-semibold text-sm mb-1 line-clamp-2">${item.name}</h4>
+                            <p class="text-gray-400 text-xs mb-2">${item.supplier} • ${item.shippingDays} days</p>
+                            <div class="flex items-center justify-between">
+                                <span class="font-bold">$${(item.price * item.quantity).toFixed(2)}</span>
+                                <div class="flex items-center gap-2 bg-white/5 rounded-lg px-2 py-1">
+                                    <button onclick="updateQuantity(${item.id}, -1)" class="text-gray-400 hover:text-white w-6 h-6 flex items-center justify-center">-</button>
+                                    <span class="text-sm w-4 text-center">${item.quantity}</span>
+                                    <button onclick="updateQuantity(${item.id}, 1)" class="text-gray-400 hover:text-white w-6 h-6 flex items-center justify-center">+</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+            }
+            
+            const totalAmount = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            total.textContent = '$' + totalAmount.toFixed(2);
+            
+            lucide.createIcons();
+        }
+
+        function toggleCart() {
+            const sidebar = document.getElementById('cartSidebar');
+            const content = document.getElementById('cartContent');
+            
+            if (sidebar.classList.contains('hidden')) {
+                sidebar.classList.remove('hidden');
+                setTimeout(() => {
+                    content.classList.remove('translate-x-full');
+                }, 10);
+            } else {
+                content.classList.add('translate-x-full');
+                setTimeout(() => {
+                    sidebar.classList.add('hidden');
+                }, 300);
+            }
+        }
+
+        function checkout() {
+            if (cart.length === 0) return;
+            showToast('Proceeding to secure checkout...');
+            setTimeout(() => {
+                alert('This is a demo. In production, this would connect to Stripe/PayPal for payment processing.');
+            }, 1000);
+        }
+
+        // Modals
+        function toggleSupplierModal() {
+            const modal = document.getElementById('supplierModal');
+            if (modal.classList.contains('hidden')) {
+                modal.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+            } else {
+                modal.classList.add('hidden');
+                document.body.style.overflow = '';
+            }
+        }
+
+        function openProductModal(productId) {
+            const product = products.find(p => p.id === productId);
+            const modal = document.getElementById('productModal');
+            const content = document.getElementById('productModalContent');
+            
+            // Reset review tab when opening new product
+            currentReviewTab = 'all';
+            currentReviewSort = 'newest';
+            
+            const reviewsHtml = renderReviewsSection(productId);
+            content.innerHTML = generateProductModalContent(product, reviewsHtml);
+            
+            modal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+            lucide.createIcons();
+        }
+
+        function closeProductModal() {
+            document.getElementById('productModal').classList.add('hidden');
+            document.body.style.overflow = '';
+            // Reset review form if open
+            closeReviewForm();
+        }
+
+        function toggleFilter() {
+            showToast('Advanced filters coming soon!');
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toastMessage').textContent = message;
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        // Close modals on escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeProductModal();
+                toggleSupplierModal();
+                if (!document.getElementById('cartSidebar').classList.contains('hidden')) {
+                    toggleCart();
+                }
+                closeReviewImageModal();
+            }
+        });
+
+        // Search on enter
+        document.getElementById('searchInput')?.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') handleSearch();
+        });
+    </script>
+</body>
+</html>
